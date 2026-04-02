@@ -1,5 +1,5 @@
 def mostrar_menu():
-    print("\n===== MENÚ =====")
+    print("\n=====MENÚ=====")
     print("1. Agregar libro")
     print("2. Ver libros")
     print("3. Eliminar libro")

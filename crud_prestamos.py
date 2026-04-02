@@ -7,28 +7,26 @@ def prestar_libro(conexion):
     if not validar_numero(libro_id) or not validar_texto(usuario):
         print("Datos inválidos")
         return
-
+    
     cursor = conexion.cursor()
 
-    # Validar que el libro exista
     cursor.execute("SELECT * FROM libro WHERE id = %s", (libro_id,))
     libro = cursor.fetchone()
 
     if not libro:
-        print("El libro no existe")
+        print("El libro no exite")
         return
-
-    # Validar que no esté prestado
+    
     cursor.execute(
-        "SELECT * FROM prestamo WHERE libro_id = %s",
-        (libro_id,)
+        "SELECT * FROM prestamo WHERE libro_id =%s",
+        (libro_id)
     )
     prestamo = cursor.fetchone()
 
     if prestamo:
-        print("El libro ya está prestado")
+        print("El libro esta prestado")
         return
-
+    
     cursor.execute(
         "INSERT INTO prestamo (libro_id, usuario, fecha_prestamo) VALUES (%s, %s, NOW())",
         (libro_id, usuario)
@@ -36,17 +34,22 @@ def prestar_libro(conexion):
     conexion.commit()
     print("Préstamo realizado")
 
-
-def ver_prestamos(conexion):
+def ver_prestamo(conexion):
     cursor = conexion.cursor()
-    cursor.execute("""
+    cursor.execute(
+        """
         SELECT p.id, l.titulo, p.usuario, p.fecha_prestamo
         FROM prestamo p
         INNER JOIN libro l ON p.libro_id = l.id
-    """)
 
+    """)
     prestamos = cursor.fetchall()
 
-    print("\n📖 Préstamos:")
+    print("Lista de prestamos:")
     for p in prestamos:
         print(f"ID: {p[0]} | Libro: {p[1]} | Usuario: {p[2]} | Fecha: {p[3]}")
+
+
+
+
+

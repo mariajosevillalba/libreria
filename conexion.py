@@ -1,10 +1,10 @@
 import psycopg2
 
 def conectar():
-    try:
+    try:  
         conexion = psycopg2.connect(
             host="localhost",
-            database="libreria", 
+            database="libreria",
             user="postgres",
             password="2026",
             port="5433"
