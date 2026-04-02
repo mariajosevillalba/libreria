@@ -28,7 +28,7 @@ def prestar_libro(conexion):
         return
     
     cursor.execute(
-        "INSERT INTO prestamo (libro_id, usuario, fecha_prestamo) VALUES (%s, %s, NOW())",
+        "INSERT INTO prestamo (libro_id, usuario, fecha_prestamo) VALUES (%s, %s, NOW() AT TIME ZONE 'America/Bogota')",
         (libro_id, usuario)
     )
     conexion.commit()
